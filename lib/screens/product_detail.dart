@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toko_online/screens/edit_product.dart';
 
 class ProductDetail extends StatelessWidget {
   final Map product;
@@ -24,7 +25,12 @@ class ProductDetail extends StatelessWidget {
                   Text(product['price'], style: TextStyle(fontSize: 22),),
                   Row(
                     children: [
-                      Icon(Icons.edit),
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct(product: product)));
+                        },
+                        child: Icon(Icons.edit)
+                      ),
                       Icon(Icons.delete),
                     ],
                   ),

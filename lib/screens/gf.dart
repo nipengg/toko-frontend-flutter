@@ -3,18 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:toko_online/screens/add_product.dart';
 import 'package:toko_online/screens/edit_product.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:toko_online/screens/product_detail.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({
+class GfPage extends StatefulWidget {
+  const GfPage({
     Key key,
   }) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _GfPageState createState() => _GfPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _GfPageState extends State<GfPage> {
   final String url = 'http://10.0.2.2:8000/api/products';
 
   Future getProducts() async
@@ -52,6 +53,7 @@ class _HomePageState extends State<HomePage> {
               return Container(
                 height: 180,
                 child: Card(
+                  clipBehavior: Clip.antiAlias,
                   elevation: 5,
                   child: Row(
                     children: [
