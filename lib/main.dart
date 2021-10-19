@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toko_online/screens/homepage.dart';
-import 'package:toko_online/screens/gf.dart';
+import 'package:toko_online/gf/gf.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Rollo Store',
-      home: HomePage(),
+      home: GfPage(),
     );
   }
 }

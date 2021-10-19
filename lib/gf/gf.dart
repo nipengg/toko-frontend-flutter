@@ -70,29 +70,37 @@ class _GfPageState extends State<GfPage> {
                           ),
                       ),
                       GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(product: snapshot.data['data'][index],)));
+                        },
                         child: Container(
                           padding: EdgeInsets.all(5), height: 250, width: 250,
                           child:
                             Image.network(snapshot.data['data'][index]['image_url']),
                         ),
                       ),
-                      ButtonBar(
-                        alignment: MainAxisAlignment.center,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          ElevatedButton(
-                            onPressed: (){
-
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct(product: snapshot.data['data'][index])));
                             },
-                            child: Text('Edit')
+                            child: Icon(Icons.edit),
                           ),
-                          ElevatedButton(
-                            onPressed: (){
-
+                          SizedBox(width: 20,),
+                          GestureDetector(
+                            onTap: (){
+                              deleteProduct(snapshot.data['data'][index]['id'].toString()).then((value){
+                                setState(() {});
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Delete product success"),));
+                              });
                             },
-                            child: Text('Delete')
+                            child: Icon(Icons.delete)
                           ),
                         ],
                       ),
+                      SizedBox(height: 20,)
                     ],
                   ),
                 ),

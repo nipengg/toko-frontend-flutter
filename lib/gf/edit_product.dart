@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:toko_online/screens/homepage.dart';
+import 'package:toko_online/gf/gf.dart';
 import 'package:http/http.dart' as http;
 
 class EditProduct extends StatelessWidget {
@@ -82,7 +82,7 @@ class EditProduct extends StatelessWidget {
                 ElevatedButton(onPressed: (){
                   if (_formKey.currentState.validate()) {
                     editProduct().then((value) {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => GfPage()));
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Update Success"),));
                     });
                   }
