@@ -16,7 +16,7 @@ class EditProduct extends StatelessWidget {
 
   Future editProduct() async
   {
-    final response = await http.put(Uri.parse("http://10.0.2.2:8000/api/products/" + product['id'].toString()), body: {
+    final response = await http.put(Uri.parse("https://toko-flutter-test.herokuapp.com/api/products/" + product['id'].toString()), body: {
       "name": _nameController.text,
       "description": _descriptionController.text,
       "price": _priceController.text,

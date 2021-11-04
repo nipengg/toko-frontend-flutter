@@ -53,55 +53,58 @@ class _GfPageState extends State<GfPage> {
               return Container(
                 child: Card(
                   clipBehavior: Clip.antiAlias,
-                  child: Column(
-                    children: [
-                      ListTile(
-                        leading: Icon(Icons.arrow_drop_down_circle),
-                        title: Text(snapshot.data['data'][index]['name']),
-                        subtitle: Text('Price : Rp.' + snapshot.data['data'][index]['price'],
-                          style: TextStyle(color: Colors.black.withOpacity(0.6)),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(16),
-                        child:
-                          Text(snapshot.data['data'][index]['description'],
-                            style: TextStyle(color: Colors.black.withOpacity(0.6))
+                  child: Expanded(
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Icon(Icons.arrow_drop_down_circle),
+                          title: Text(snapshot.data['data'][index]['name']),
+                          subtitle: Text('Price : Rp.' + snapshot.data['data'][index]['price'],
+                            style: TextStyle(color: Colors.black.withOpacity(0.6)),
                           ),
-                      ),
-                      GestureDetector(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(product: snapshot.data['data'][index],)));
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(5), height: 250, width: 250,
+                        ),
+                        Divider(color: Colors.black,),
+                        Padding(
+                          padding: EdgeInsets.all(16),
                           child:
-                            Image.network(snapshot.data['data'][index]['image_url']),
+                            Text(snapshot.data['data'][index]['description'],
+                              style: TextStyle(color: Colors.black.withOpacity(0.6))
+                            ),
                         ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct(product: snapshot.data['data'][index])));
-                            },
-                            child: Icon(Icons.edit),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(product: snapshot.data['data'][index],)));
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(5), height: 250, width: 250,
+                            child:
+                              Image.network(snapshot.data['data'][index]['image_url']),
                           ),
-                          SizedBox(width: 20,),
-                          GestureDetector(
-                            onTap: (){
-                              deleteProduct(snapshot.data['data'][index]['id'].toString()).then((value){
-                                setState(() {});
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Delete product success"),));
-                              });
-                            },
-                            child: Icon(Icons.delete)
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 20,)
-                    ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct(product: snapshot.data['data'][index])));
+                              },
+                              child: Icon(Icons.edit),
+                            ),
+                            SizedBox(width: 20,),
+                            GestureDetector(
+                              onTap: (){
+                                deleteProduct(snapshot.data['data'][index]['id'].toString()).then((value){
+                                  setState(() {});
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Delete product success"),));
+                                });
+                              },
+                              child: Icon(Icons.delete)
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20,)
+                      ],
+                    ),
                   ),
                 ),
               );

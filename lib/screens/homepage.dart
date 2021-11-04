@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final String url = 'http://10.0.2.2:8000/api/products';
+  final String url = 'https://toko-flutter-test.herokuapp.com/api/products';
 
   Future getProducts() async
   {
@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
 
   Future deleteProduct(String productId) async
   {
-    String url = 'http://10.0.2.2:8000/api/products/' + productId;
+    String url = 'https://toko-flutter-test.herokuapp.com/api/products/' + productId;
 
     var response = await http.delete(Uri.parse(url));
     return json.decode(response.body);

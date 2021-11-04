@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Rollo Store',
-      home: GfPage(),
+      home: HomePage(),
     );
   }
 }

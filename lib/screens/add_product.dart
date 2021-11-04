@@ -14,7 +14,7 @@ class AddProduct extends StatelessWidget {
 
   Future saveProduct() async
   {
-    final response = await http.post(Uri.parse("http://10.0.2.2:8000/api/products"), body: {
+    final response = await http.post(Uri.parse("https://toko-flutter-test.herokuapp.com/api/products"), body: {
       "name": _nameController.text,
       "description": _descriptionController.text,
       "price": _priceController.text,
