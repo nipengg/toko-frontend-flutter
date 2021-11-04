@@ -60,6 +60,7 @@ class EditProduct extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: _priceController..text = product['price'],
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(labelText: "Price"),
                   validator: (value){
                     if (value == null || value.isEmpty) {
@@ -82,7 +83,7 @@ class EditProduct extends StatelessWidget {
                 ElevatedButton(onPressed: (){
                   if (_formKey.currentState.validate()) {
                     editProduct().then((value) {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomePage()), (Route<dynamic> route) => false,);
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Update Success"),));
                     });
                   }

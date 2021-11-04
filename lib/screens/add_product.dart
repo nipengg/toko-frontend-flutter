@@ -58,6 +58,7 @@ class AddProduct extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: _priceController,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(labelText: "Price"),
                   validator: (value){
                     if (value == null || value.isEmpty) {
@@ -80,7 +81,7 @@ class AddProduct extends StatelessWidget {
                 ElevatedButton(onPressed: (){
                   if (_formKey.currentState.validate()) {
                     saveProduct().then((value) {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomePage()), (Route<dynamic> route) => false,);
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Add product success"),));
                     });
                   }

@@ -54,8 +54,9 @@ class _HomePageState extends State<HomePage> {
             if(snapshot.hasData){
               return ListView.builder(itemCount: snapshot.data['data'].length, itemBuilder: (context, index){
                 return Container(
-                  height: 180,
+                  height: 185,
                   child: Card(
+                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
                     elevation: 5,
                     child: Row(
                       children: [
@@ -69,39 +70,52 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Expanded(
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(20),
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Align(alignment: Alignment.topLeft,
                                   child:
-                                    Text(snapshot.data['data'][index]['name'], style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)),
+                                    Text(snapshot.data['data'][index]['name'], style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),)),
+                                    SizedBox(height: 3),
                                 Align(alignment: Alignment.topLeft,
                                   child:
-                                    Text(snapshot.data['data'][index]['description'], )),
+                                    Text('Rp.' + snapshot.data['data'][index]['price'], style: TextStyle(fontSize: 17),)),
+                                    SizedBox(height: 3),
+                                Align(alignment: Alignment.topLeft,
+                                  child:
+                                    Text(snapshot.data['data'][index]['description'], style: TextStyle(fontSize: 17, color: Colors.grey[400]),)),
+                                    SizedBox(height: 13),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Row(
                                       children: [
-                                        GestureDetector(
-                                          onTap: (){
+                                        OutlineButton(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                          ),
+                                          onPressed: () {
                                             Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct(product: snapshot.data['data'][index],)));
                                           },
-                                          child: Icon(Icons.edit)
+                                          child:
+                                            Text("Edit", style: TextStyle(),),
                                         ),
-                                        GestureDetector(
-                                          onTap: (){
+                                        Container(width: 10),
+                                        OutlineButton(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                          ),
+                                          onPressed: () {
                                             deleteProduct(snapshot.data['data'][index]['id'].toString()).then((value){
                                               setState(() {});
                                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Delete product success"),));
                                             });
                                           },
-                                          child: Icon(Icons.delete)
+                                          child: Text("Delete", style: TextStyle(),),
                                         ),
                                       ],
                                     ),
-                                    Text('Rp.' + snapshot.data['data'][index]['price'], style: TextStyle(fontSize: 17),),
                                   ],
                                 ),
                               ],
