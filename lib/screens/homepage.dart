@@ -42,78 +42,83 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.add),
         ),
       appBar: AppBar(
-        title: Text('Eta Terangkanlah'),
+        title: Text('Laravel + Flutter API'),
       ),
-      body: FutureBuilder(
-        future: getProducts(),
-        builder: (context, snapshot){
-          if(snapshot.hasData){
-            return ListView.builder(itemCount: snapshot.data['data'].length, itemBuilder: (context, index){
-              return Container(
-                height: 180,
-                child: Card(
-                  elevation: 5,
-                  child: Row(
-                    children: [
-                      GestureDetector(onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(product: snapshot.data['data'][index],)));
-                      },
-                      child:
-                        Container(padding: EdgeInsets.all(5),height: 120, width: 120,
-                          child: Image.network(snapshot.data['data'][index]['image_url'])
-                        )
-                      ),
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Align(alignment: Alignment.topLeft,
-                                child:
-                                  Text(snapshot.data['data'][index]['name'], style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)),
-                              Align(alignment: Alignment.topLeft,
-                                child:
-                                  Text(snapshot.data['data'][index]['description'], )),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: (){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct(product: snapshot.data['data'][index],)));
-                                        },
-                                        child: Icon(Icons.edit)
-                                      ),
-                                      GestureDetector(
-                                        onTap: (){
-                                          deleteProduct(snapshot.data['data'][index]['id'].toString()).then((value){
-                                            setState(() {});
-                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Delete product success"),));
-                                          });
-                                        },
-                                        child: Icon(Icons.delete)
-                                      ),
-                                    ],
-                                  ),
-                                  Text('Rp.' + snapshot.data['data'][index]['price'], style: TextStyle(fontSize: 17),),
-                                ],
-                              ),
-                            ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+            setState((){});
+        },
+        child: FutureBuilder(
+          future: getProducts(),
+          builder: (context, snapshot){
+            if(snapshot.hasData){
+              return ListView.builder(itemCount: snapshot.data['data'].length, itemBuilder: (context, index){
+                return Container(
+                  height: 180,
+                  child: Card(
+                    elevation: 5,
+                    child: Row(
+                      children: [
+                        GestureDetector(onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(product: snapshot.data['data'][index],)));
+                        },
+                        child:
+                          Container(padding: EdgeInsets.all(5),height: 120, width: 120,
+                            child: Image.network(snapshot.data['data'][index]['image_url'])
+                          )
+                        ),
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Align(alignment: Alignment.topLeft,
+                                  child:
+                                    Text(snapshot.data['data'][index]['name'], style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),)),
+                                Align(alignment: Alignment.topLeft,
+                                  child:
+                                    Text(snapshot.data['data'][index]['description'], )),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: (){
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => EditProduct(product: snapshot.data['data'][index],)));
+                                          },
+                                          child: Icon(Icons.edit)
+                                        ),
+                                        GestureDetector(
+                                          onTap: (){
+                                            deleteProduct(snapshot.data['data'][index]['id'].toString()).then((value){
+                                              setState(() {});
+                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Delete product success"),));
+                                            });
+                                          },
+                                          child: Icon(Icons.delete)
+                                        ),
+                                      ],
+                                    ),
+                                    Text('Rp.' + snapshot.data['data'][index]['price'], style: TextStyle(fontSize: 17),),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              );
-            });
-          }
-          else{
-            return Text('Data error');
-          }
-        },
+                );
+              });
+            }
+            else{
+              return Text('Data error');
+            }
+          },
+        ),
       )
     );
   }
